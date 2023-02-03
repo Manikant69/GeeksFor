@@ -1,0 +1,38 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+
+// } Driver Code Ends
+class Solution{
+    public:
+    // L and R are input array
+    // maxx : maximum in R[]
+    // n: size of array
+    // arr[] : declared globally with size equal to maximum in L[] and R[]
+    //Function to find the maximum occurred integer in all ranges.
+    int maxOccured(int L[], int R[], int n, int maxx){
+    
+        vector<int>v(maxx+2);
+        for(int i=0; i<n; i++)
+        {
+            v[L[i]] += 1;
+            v[R[i]+1] -=1;
+        }
+        int ans=0, temp=0;
+        int index=0;
+        for(int i=0; i<v.size(); i++)
+        {
+           temp+=v[i];
+           if(temp > ans)
+            {
+                ans=temp;
+                index=i;
+            }
+        }
+        return index;
+        
+    }
+};
