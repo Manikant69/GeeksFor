@@ -1,0 +1,36 @@
+class Solution{
+  public:
+    vector <int> countDistinct (int A[], int n, int k)
+    {
+        vector<int> ans;
+        unordered_map<int, int> m;
+        for(int i=0; i<k; i++)
+        {
+           m[A[i]]++;
+        }
+        
+        int left = 0;
+        int cnt = m.size();
+        ans.push_back(cnt);
+        
+        if(n>k)
+        {
+            for(int i=k; i<n; i++)
+            {   //add this element into map
+                m[A[i]]++;
+                if(m[A[i]]==1)
+                    cnt++;
+                    
+                 //discard the last element   
+                m[A[left]]--;
+                if(m[A[left]] == 0)
+                    cnt--;
+                left++;
+                
+                ans.push_back(cnt);
+            }
+        }
+        
+        return ans;
+    }
+};
