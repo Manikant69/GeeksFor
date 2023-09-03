@@ -1,0 +1,41 @@
+private:
+    pair<bool, int> isSumTreeFast(Node* root)
+    {
+        //base case
+        if(root == NULL)
+        {
+            pair<bool, int> p = make_pair(true, 0);
+            return p;
+        }
+        //for leaf nodes
+        if(root -> left == NULL && root -> right == NULL)
+        {
+            pair<bool, int> p = make_pair(true, root -> data);
+            return p;
+        }
+        
+        pair<bool, int> left = isSumTreeFast(root -> left);
+        pair<bool, int> right = isSumTreeFast(root -> right);
+        
+        bool condition = (left.second + right.second) == root -> data;
+        
+        pair<bool, int> ans;
+        
+        ans.second = left.second + right.second + root -> data;
+        
+        if(left.first && right.first && condition)
+        {
+            ans.first = true;
+        }
+        else
+        {
+            ans.first = false;
+        }
+        
+        return ans;
+    }
+    public:
+    bool isSumTree(Node* root)
+    {
+         return isSumTreeFast(root).first;
+    }
